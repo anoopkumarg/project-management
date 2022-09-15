@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+button {
+  margin: 10px 5px;
+}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.no-data-cell {
+  text-align: center;
+}
+.search-field {
+  margin-right: 10px;
+}
+::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
+  padding-top: 0 !important;
+}

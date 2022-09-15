@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>{{ data.isEdit ? "Edit Task" : "Create Task" }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="taskForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Task Name"
+        formControlName="name"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="taskName?.errors?.['required']">
+        Task Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <select matNativeControl formControlName="status">
+        <option value="not-started">Not Started</option>
+        <option value="in-progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Owner</mat-label>
+      <input
+        type="text"
+        placeholder="Pick one"
+        aria-label="Number"
+        matInput
+        formControlName="owner"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let user of data.users" [value]="user.name">
+          {{ user.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Deadline</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="deadline"
+        autocomplete="off"
+        (click)="picker.open()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+<mat-dialog-actions align="center">
+  <button type="button" mat-button mat-dialog-close>Cancel</button>
+  <button
+    type="submit"
+    [disabled]="taskForm.invalid"
+    mat-button
+    color="primary"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>
